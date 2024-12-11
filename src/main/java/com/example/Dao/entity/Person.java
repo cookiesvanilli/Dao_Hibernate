@@ -1,6 +1,7 @@
 package com.example.Dao.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.IdClass;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,11 +11,11 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.io.Serializable;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "persons")
+@IdClass(Person.class)
 @Entity
 public class Person implements Serializable {
     @Id
@@ -23,6 +24,6 @@ public class Person implements Serializable {
     private String surname;
     @Id
     private int age;
-    private int phone_number;
-    private String city_of_living;
+    private int phoneNumber;
+    private String cityOfLiving;
 }
