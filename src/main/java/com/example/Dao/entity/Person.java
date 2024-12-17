@@ -1,29 +1,30 @@
 package com.example.Dao.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.IdClass;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+import lombok.Data;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.io.Serializable;
 
-@Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Builder
 @Table(name = "persons")
-@IdClass(Person.class)
-@Entity
-public class Person implements Serializable {
-    @Id
-    private String name;
-    @Id
-    private String surname;
-    @Id
-    private int age;
-    private int phoneNumber;
+@NamedNativeQuery(
+        name = "findPersonByCity",
+        query = "select * from persons p where p.cityOfLiving = :city"
+)
+public class Person {
+    @EmbeddedId
+    private Human human;
+    @Column(length = 25, name = "phone_number", nullable = false)
+    private String phoneNumber;
+    @Column(length = 50, name = "cityOfLiving", nullable = false)
     private String cityOfLiving;
+
+
 }
